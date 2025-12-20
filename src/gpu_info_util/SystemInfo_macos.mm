@@ -54,11 +54,11 @@ bool GetEntryProperty(io_registry_entry_t entry, CFStringRef name, uint32_t *val
 // Gathers the vendor and device IDs for GPUs listed in the IORegistry.
 void GetIORegistryDevices(std::vector<GPUDeviceInfo> *devices)
 {
-#if TARGET_OS_OSX && __MAC_OS_X_VERSION_MIN_REQUIRED < 120000
+// #if TARGET_OS_OSX && __MAC_OS_X_VERSION_MIN_REQUIRED < 120000
     const mach_port_t mainPort = kIOMasterPortDefault;
-#else
-    const mach_port_t mainPort = kIOMainPortDefault;
-#endif
+// #else
+//     const mach_port_t mainPort = kIOMainPortDefault;
+// #endif
     constexpr uint32_t kNumServices         = 2;
     const char *kServiceNames[kNumServices] = {"IOGraphicsAccelerator2", "AGXAccelerator"};
     const bool kServiceIsGraphicsAccelerator2[kNumServices] = {true, false};
@@ -148,11 +148,11 @@ void GetIORegistryDevices(std::vector<GPUDeviceInfo> *devices)
 
 void ForceGPUSwitchIndex(SystemInfo *info)
 {
-#if TARGET_OS_OSX && __MAC_OS_X_VERSION_MIN_REQUIRED < 120000
+// #if TARGET_OS_OSX && __MAC_OS_X_VERSION_MIN_REQUIRED < 120000
     const mach_port_t mainPort = kIOMasterPortDefault;
-#else
-    const mach_port_t mainPort = kIOMainPortDefault;
-#endif
+// #else
+//     const mach_port_t mainPort = kIOMainPortDefault;
+// #endif
 
     // Early-out if on a single-GPU system
     if (info->gpus.size() < 2)
@@ -266,11 +266,11 @@ uint64_t GetGpuIDFromOpenGLDisplayMask(uint32_t displayMask)
 // Get VendorID from metal device's registry ID
 VendorID GetVendorIDFromMetalDeviceRegistryID(uint64_t registryID)
 {
-#if TARGET_OS_OSX && __MAC_OS_X_VERSION_MIN_REQUIRED < 120000
+// #if TARGET_OS_OSX && __MAC_OS_X_VERSION_MIN_REQUIRED < 120000
     const mach_port_t mainPort = kIOMasterPortDefault;
-#else
-    const mach_port_t mainPort = kIOMainPortDefault;
-#endif
+// #else
+//     const mach_port_t mainPort = kIOMainPortDefault;
+// #endif
 
     // Get a matching dictionary for the IOGraphicsAccelerator2
     CFMutableDictionaryRef matchingDict = IORegistryEntryIDMatching(registryID);
