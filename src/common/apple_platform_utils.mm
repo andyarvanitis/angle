@@ -107,7 +107,7 @@ bool IsMetalRendererAvailable()
             return [device supportsFamily:MTLGPUFamilyMacCatalyst2];
 #elif TARGET_OS_MACCATALYST || TARGET_OS_OSX
             // Devices in family 1, such as MacBookPro11,4, cannot use ANGLE's Metal backend.
-            return [device supportsFamily:MTLGPUFamilyMac2];
+            return [device supportsFamily:MTLGPUFamilyMac1];
 #else
             // Devices starting with A9 onwards are supported. Simulator is supported as per
             // definition that running simulator on Mac Family 1 devices is not supported.
@@ -121,11 +121,12 @@ bool IsMetalRendererAvailable()
 #if defined(ANGLE_PLATFORM_MACOS) || defined(ANGLE_PLATFORM_MACCATALYST)
 bool GetMacosMachineModel(std::string *outMachineModel)
 {
-#    if TARGET_OS_OSX && __MAC_OS_X_VERSION_MIN_REQUIRED < 120000
+// #    if TARGET_OS_OSX && __MAC_OS_X_VERSION_MIN_REQUIRED < 120000
+//     const mach_port_t mainPort = kIOMasterPortDefault;
+// #    else
+//     const mach_port_t mainPort = kIOMainPortDefault;
+// #    endif
     const mach_port_t mainPort = kIOMasterPortDefault;
-#    else
-    const mach_port_t mainPort = kIOMainPortDefault;
-#    endif
     io_service_t platformExpert =
         IOServiceGetMatchingService(mainPort, IOServiceMatching("IOPlatformExpertDevice"));
 
