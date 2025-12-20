@@ -107,7 +107,7 @@ bool IsMetalRendererAvailable()
             return [device supportsFamily:MTLGPUFamilyMacCatalyst2];
 #elif TARGET_OS_MACCATALYST || TARGET_OS_OSX
             // Devices in family 1, such as MacBookPro11,4, cannot use ANGLE's Metal backend.
-            return [device supportsFamily:MTLGPUFamilyMac1];
+            return true; // [device supportsFamily:MTLGPUFamilyMac2];
 #else
             // Devices starting with A9 onwards are supported. Simulator is supported as per
             // definition that running simulator on Mac Family 1 devices is not supported.
